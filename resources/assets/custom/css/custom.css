@@ -1,0 +1,33 @@
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+    background-color: #3498db !important;
+    border: 1px solid #3498db !important;
+}
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+    color: #000 !important;
+}
+.widget-user .widget-user-header {
+    padding: 0!important;
+}
+.select2-container{
+    width: 100%!important;
+}
+.btn-jinja-cancel, .btn-jinja-cancel:hover{
+    color: #fff;
+    background-color: #C71200;
+    border-radius: 10px;
+    padding: 0.25rem;
+    padding-left: 3rem !important;
+    padding-right: 3rem !important;
+}
+.btn-jinja-done, .btn-jinja-done:hover{
+    color: #fff;
+    background-color: #48B749;
+    border-radius: 10px;
+    padding: 0.25rem;
+    padding-left: 3rem !important;
+    padding-right: 3rem !important;
+}
+ ul[role="listbox"] > li[role="option"] {
+     font-weight: bold;
+     padding: 6px 6px!important;
+ }

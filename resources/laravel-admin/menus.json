@@ -1,0 +1,60 @@
+{
+    "menus": [
+        {
+            "section": "Resources",
+            "items": [
+
+            ]
+        },
+        {
+            "section": "Tools",
+            "items": [
+                {
+                    "title": "Users",
+                    "icon": "fa fa-users",
+                    "url": "\/admin\/users"
+                },
+                {
+                    "title": "Roles",
+                    "icon": "fas fa-tree",
+                    "url": "\/admin\/roles"
+                },
+                {
+                    "title": "Permissions",
+                    "icon": "fa fa-lock",
+                    "url": "\/admin\/permissions"
+                },
+                {
+                    "title": "Languages",
+                    "icon": "fa fa-language",
+                    "url": "\/admin\/languages"
+                },
+                {
+                    "title": "Translations",
+                    "icon": "fa fa-list",
+                    "url": "\/admin\/translations"
+                },
+                {
+                    "title": "Pages",
+                    "icon": "fas fa-book",
+                    "url": "\/admin\/pages"
+                },
+                {
+                    "title": "Activity Logs",
+                    "icon": "fa fa-history",
+                    "url": "\/admin\/activitylogs"
+                },
+                {
+                    "title": "Settings",
+                    "icon": "fa fa-cog",
+                    "url": "\/admin\/settings"
+                },
+                {
+                    "title": "Generator",
+                    "icon": "far fa-plus-square",
+                    "url": "\/admin\/generator"
+                }
+            ]
+        }
+    ]
+}
