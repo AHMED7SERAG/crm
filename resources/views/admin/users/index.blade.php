@@ -44,6 +44,8 @@
 
                                             <th dt-type="text" dt-name="name">{{ trans('users.name') }}</th>
                                             <th dt-type="text" dt-name="email">{{ trans('users.email') }}</th>
+                                             <th dt-type="text" dt-name="phone">{{ trans('users.mobile') }}</th>
+                                            <th dt-type="text" dt-name="actionToUser">{{ trans('users.action') }}</th>
                                             <th style="width: 25%;">@lang('general.action')</th>
                                         </tr>
                                         <tr id="searchable-row" @if(app()->getLocale() == 'ar') dir="rtl" @endif></tr>

@@ -1,19 +1,32 @@
 @extends('layouts.acme.admin.app')
 
 @section('title')
-    @lang('settings.settings')
+    @lang('employee.employee')
 @endsection
+@push('styles')
+    <style>
+        .select2-container{
+            width: 100%!important;
+        }
+        .select2-container--classic .select2-selection--single, .select2-container--default .select2-selection--single {
+            height: 52px!important;
+            padding: 5px;
+            width: auto;
+            border-color: #717171!important;
+        }
+    </style>
+@endpush
 
 @section('content')
     <div class="app-content content">
-        @include ('layouts.acme.admin._card_header', ['routeGroup' => 'admin', 'viewName' => 'settings', 'type' => 'index'])
+        @include ('layouts.acme.admin._card_header', ['routeGroup' => 'admin', 'viewName' => 'employee', 'type' => 'index'])
         <div class="content-body">
             <!-- datatable -->
             <section class="row">
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">@lang('general.all') @lang('settings.settings')</h4>
+                            <h4 class="card-title">@lang('general.all') @lang('employee.employee')</h4>
                             <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                             <div class="heading-elements">
                                 <ul class="list-inline mb-0">
@@ -28,8 +41,9 @@
                                     <table class="table table-striped table-bordered zero-configuration data-table w-100">
                                         <thead>
                                         <tr>
-                                            <th dt-type="text" dt-name="key">{{ trans('settings.key') }}</th>
-                                            <th dt-type="text" dt-name="value">{{ trans('settings.value') }}</th>
+
+                                            <th dt-type="text" dt-name="name">{{ trans('employee.name') }}</th>
+                                            <th dt-type="text" dt-name="email">{{ trans('employee.email') }}</th>
                                             <th style="width: 25%;">@lang('general.action')</th>
                                         </tr>
                                         <tr id="searchable-row" @if(app()->getLocale() == 'ar') dir="rtl" @endif></tr>
@@ -52,7 +66,7 @@
 @push('scripts')
     <script>
         var lang = '{{app()->getLocale()}}';
-        var dataTablesSearchLink = '{{url('admin/settings')}}';
+        var dataTablesSearchLink = '{{url('admin/employee')}}';
         const dataTablesLanguageLink = '{{(app()->getLocale() == 'ar')? asset('datatables/lang/ar.json') : ''}}';
     </script>
 @endpush

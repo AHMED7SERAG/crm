@@ -17,10 +17,15 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
+            $table->integer('phone')->unique();
+            $table->unsignedBigInteger('locked_by')->nullable();
+            $table->foreign('locked_by')->references('id')->on('users');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->enum('actionToUser',['call','visit','follow up'])->nullable();
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -20,18 +20,23 @@
 <div class="form-body">
 
     <div class="form-group{{ $errors->has('name') ? ' has-error' : ''}}">
-        {!! Form::label('name', __('users.name'), ['class' => 'control-label']) !!}
+        {!! Form::label('name', __('employee.name'), ['class' => 'control-label']) !!}
         {!! Form::text('name', null, ['class' => 'form-control', 'required' => 'required']) !!}
         {!! $errors->first('name', '<p class="text-danger help-block">:message</p>') !!}
     </div>
     <div class="form-group{{ $errors->has('email') ? ' has-error' : ''}}">
-        {!! Form::label('email', __('users.email'), ['class' => 'control-label']) !!}
+        {!! Form::label('email', __('employee.email'), ['class' => 'control-label']) !!}
         {!! Form::email('email', null, ['class' => 'form-control', 'required' => 'required']) !!}
         {!! $errors->first('email', '<p class="text-danger help-block">:message</p>') !!}
     </div>
+    <div class="form-group{{ $errors->has('phone') ? ' has-error' : ''}}">
+        {!! Form::label('phone', __('employee.phone'), ['class' => 'control-label']) !!}
+        {!! Form::email('phone', null, ['class' => 'form-control', 'required' => 'required']) !!}
+        {!! $errors->first('phone', '<p class="text-danger help-block">:message</p>') !!}
+    </div>
 
     <div class="form-group{{ $errors->has('password') ? ' has-error' : ''}}">
-        {!! Form::label('password', __('users.password'), ['class' => 'control-label']) !!}
+        {!! Form::label('password', __('employee.password'), ['class' => 'control-label']) !!}
         @php
             $passwordOptions = ['class' => 'form-control'];
             if ($formMode === 'create') {
@@ -48,18 +53,10 @@
 
 
     <div class="form-group{{ $errors->has('roles') ? ' has-error' : ''}}" id="roles-div">
-        {!! Form::label('role', __('users.role'), ['class' => 'control-label']) !!}
+        {!! Form::label('role', __('employee.role'), ['class' => 'control-label']) !!}
         {!! Form::select('roles[]', $roles, null, ['class' => 'form-control select-custom',
         'multiple' => true, 'id' => 'roles']) !!}
         {!! $errors->first('roles', '<p class="text-danger help-block">:message</p>') !!}
-    </div>
-    
-
-    <div class="form-group{{ $errors->has('actionToUser') ? ' has-error' : ''}}" id="roles-div">
-        {!! Form::label('actionToUser', __('users.actionToUser'), ['class' => 'control-label']) !!}
-        {!! Form::select('actionToUser', ['call','visit','follow up'], $user->actionToUser, ['class' => 'form-control select-custom',
-         'id' => 'actionToUser']) !!}
-        {!! $errors->first('action', '<p class="text-danger help-block">:message</p>') !!}
     </div>
 </div>
 <div class="form-actions text-right">

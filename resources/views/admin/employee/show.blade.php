@@ -1,13 +1,13 @@
 @extends('layouts.acme.admin.app')
 
 @section('title')
-    @lang('users.users')
+    @lang('employee.employee')
 @endsection
 
 
 @section('content')
     <div class="app-content content">
-        @include ('layouts.acme.admin._card_header', ['routeGroup' => 'admin', 'viewName' => 'users', 'type' => 'show'])
+        @include ('layouts.acme.admin._card_header', ['routeGroup' => 'admin', 'viewName' => 'employee', 'type' => 'show'])
         <div class="content-body">
             <!-- datatable -->
             <section class="row">
@@ -29,7 +29,7 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <th> {{ trans('users.name') }} </th>
+                                            <th> {{ trans('employee.name') }} </th>
                                             <td>
 
                                                     {{ $user->name }}
@@ -37,13 +37,13 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <th> {{ trans('users.email') }} </th>
+                                            <th> {{ trans('employee.email') }} </th>
                                             <td>
                                                 {{ $user->email }}
                                             </td>
                                         </tr>
                                         <tr>
-                                            <th> {{ trans('users.role') }} </th>
+                                            <th> {{ trans('employee.role') }} </th>
                                             <td>
                                                 @foreach($user->roles->pluck('label') as $role)
 
@@ -52,13 +52,6 @@
                                                 @endforeach
                                             </td>
                                         </tr>
-                                         <tr>
-                                            <th> {{ trans('users.actionToUser') }} </th>
-                                            <td>
-                                                {{ $user->actionToUser }}
-                                            </td>
-                                        </tr>
-                                        <tr>
                                         </tbody>
                                     </table>
                                 </div>

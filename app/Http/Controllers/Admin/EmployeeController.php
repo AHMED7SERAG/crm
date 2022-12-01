@@ -8,7 +8,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
-class UsersController extends Controller
+class EmployeeController extends Controller
 {
     public function __construct()
     {
@@ -28,13 +28,13 @@ class UsersController extends Controller
     {
         if ($request->ajax()) {
             $data = User::query()->whereHas('roles',function($q){
-                $q->where('name','Customer');
-            })->where('locked_by',auth()->user()->id);
+                $q->where('name','Employee');
+            })->whereNull('locked_by');
             return DataTables::of($data)
                 ->addColumn('actions', function ($row){
-                    $btn = '<a href="'. route('admin.users.edit', $row->id) .'" class="btn btn-success btn-sm"><i class="fa fa-edit"></i> </a>';
-                    $btn .= '<a href="'. route('admin.users.show', $row->id) .'" class="btn btn-primary btn-sm ml-1 mr-1"><i class="fa fa-eye"></i> </a>';
-                    $btn .= '<form action="'. route('admin.users.destroy', $row->id) .'" class="my-1 my-xl-0" method="post" style="display: inline-block;">';
+                    $btn = '<a href="'. route('admin.emmployee.edit', $row->id) .'" class="btn btn-success btn-sm"><i class="fa fa-edit"></i> </a>';
+                    $btn .= '<a href="'. route('admin.emmployee.show', $row->id) .'" class="btn btn-primary btn-sm ml-1 mr-1"><i class="fa fa-eye"></i> </a>';
+                    $btn .= '<form action="'. route('admin.emmployee.destroy', $row->id) .'" class="my-1 my-xl-0" method="post" style="display: inline-block;">';
                     $btn .= '<input name="_method" type="hidden" value="DELETE"><input name="_token" type="hidden" value="'.csrf_token().'">';
                     $btn .= '<button type="submit" class="btn btn-danger btn-sm  btn-jinja-delete"><i class="fa fa-trash"></i> </button>';
                     $btn .= '</form>';
@@ -44,7 +44,7 @@ class UsersController extends Controller
                 ->make(true);
         }
 
-        return view('admin.users.index');
+        return view('admin.emmployee.index');
     }
 
     /**
@@ -57,7 +57,7 @@ class UsersController extends Controller
         $roles = Role::select('id', 'name', 'label')->get();
         $roles = $roles->pluck('label', 'name');
         $user = new User();
-        return view('admin.users.create', compact('roles', 'user'));
+        return view('admin.emmployee.create', compact('roles', 'user'));
     }
 
     /**
@@ -75,14 +75,17 @@ class UsersController extends Controller
                 'name' => 'required',
                 'email' => 'required|string|max:255|email|unique:users,email',
                 'roles' => 'required',
-                'phone' => 'required|integer|max:255|unique:users,phone'
+                'password' => 'required',
+                'phone' => 'required|integer|max:255|unique:users,phone',
             ]
         );
 
         $requestData = $request->all();
 
- 
-            $requestData['locked_by'] = auth()->user()->id;
+        if ($request->has('password')) {
+            $requestData['password'] = bcrypt($request->password);
+        }
+
 
         $user = User::create($requestData);
 
@@ -90,7 +93,7 @@ class UsersController extends Controller
             $user->assignRole($role);
         }
 
-        return redirect('admin/users')->with('flash_message', __('general.added_successfully'));
+        return redirect('admin/emmployee')->with('flash_message', __('general.added_successfully'));
     }
 
     /**
@@ -104,7 +107,7 @@ class UsersController extends Controller
     {
         $user = User::findOrFail($id);
 
-        return view('admin.users.show', compact('user'));
+        return view('admin.emmployee.show', compact('user'));
     }
 
     /**
@@ -119,13 +122,13 @@ class UsersController extends Controller
         $roles = Role::select('id', 'name', 'label')->get();
         $roles = $roles->pluck('label', 'name');
 
-        $user = User::with('roles')->select('id', 'name', 'email', 'mobile')->findOrFail($id);
+        $user = User::with('roles')->select('id', 'name', 'email')->findOrFail($id);
         $user_roles = [];
         foreach ($user->roles as $role) {
             $user_roles[] = $role->name;
         }
 
-        return view('admin.users.edit', compact('user', 'roles', 'user_roles'));
+        return view('admin.emmployee.edit', compact('user', 'roles', 'user_roles'));
     }
 
     /**
@@ -143,14 +146,18 @@ class UsersController extends Controller
             [
                 'name' => 'required',
                 'email' => 'required|string|max:255|email|unique:users,email,' . $id,
+                'phone' => 'required|integer|unique:users,phone,' . $id,
                 'roles' => 'required',
-                'actionToUser' =>'required'
+                'password' => 'required'
             ]
         );
 
         $requestData = $request->except(['password']);
-        
-    
+        if ($request->has('password') && $request->password != null) {
+            $requestData['password'] = bcrypt($request->password);
+        }
+
+
 
         $user = User::findOrFail($id);
         $user->update($requestData);
@@ -160,15 +167,21 @@ class UsersController extends Controller
             $user->assignRole($role);
         }
 
-        return redirect('admin/users')->with('flash_message', __('general.updated_successfully'));
+        return redirect('admin/emmployee')->with('flash_message', __('general.updated_successfully'));
     }
 
-  
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     *
+     * @return void
+     */
     public function destroy($id)
     {
         User::destroy($id);
 
-        return redirect('admin/users')->with('flash_message', __('general.deleted_successfully'));
+        return redirect('admin/emmployee')->with('flash_message', __('general.deleted_successfully'));
     }
 
     public function bulkDelete()
@@ -180,6 +193,6 @@ class UsersController extends Controller
 
         }//end of for each
 
-        return redirect('admin/users')->with('flash_message', __('general.deleted_successfully'));
+        return redirect('admin/emmployee')->with('flash_message', __('general.deleted_successfully'));
     }// end of bulkDelete
 }

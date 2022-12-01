@@ -21,9 +21,11 @@ class RoleTableSeeder extends Seeder
         $user = User::create([
             'name' => "Super Admin",
             'email' => "super_admin@admin.com",
+             'phone' => "0109764325",
             'password' => Hash::make("123456"),
         ]);
         $user->assignRole(['Super Admin']);
-
+        $role = Role::create(['name' => 'Customer' ,'label' => "Customer"]);
+        $role = Role::create(['name' => 'Employee' ,'label' => "Employee"]);
     }
 }

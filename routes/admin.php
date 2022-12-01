@@ -27,16 +27,10 @@ Route::resource('permissions', 'App\Http\Controllers\Admin\PermissionsController
 Route::get('users/bulk_delete',['App\Http\Controllers\Admin\UsersController','bulkDelete'])->name('users.bulk_delete');
 Route::resource('users', 'App\Http\Controllers\Admin\UsersController')->middleware('auth');
 
-Route::resource('pages', 'App\Http\Controllers\Admin\PagesController');
-Route::resource('activitylogs', 'App\Http\Controllers\Admin\ActivityLogsController')->only([
-    'index', 'show', 'destroy',
-]);
-Route::get('settings/bulk_delete',['App\Http\Controllers\Admin\SettingsController','bulkDelete'])->name('settings.bulk_delete');
+Route::get('employee/bulk_delete',['App\Http\Controllers\Admin\EmployeeController','bulkDelete'])->name('users.bulk_delete');
+Route::resource('employee', 'App\Http\Controllers\Admin\EmployeeController')->middleware('auth');
 
-Route::resource('settings', 'App\Http\Controllers\Admin\SettingsController');
 
-Route::get('generator', ['uses' => '\acmepackage\LaravelAdmin\Controllers\ProcessController@getGenerator'])->name('generator');
-Route::post('generator', ['uses' => '\acmepackage\LaravelAdmin\Controllers\ProcessController@postGenerator']);
 
 Route::get('languages/bulk_delete',['App\Http\Controllers\Admin\LanguagesController','bulkDelete'])->name('languages.bulk_delete');
 Route::resource('languages', LanguagesController::class);
