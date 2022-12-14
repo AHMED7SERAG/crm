@@ -32,9 +32,9 @@ class EmployeeController extends Controller
             })->whereNull('locked_by');
             return DataTables::of($data)
                 ->addColumn('actions', function ($row){
-                    $btn = '<a href="'. route('admin.emmployee.edit', $row->id) .'" class="btn btn-success btn-sm"><i class="fa fa-edit"></i> </a>';
-                    $btn .= '<a href="'. route('admin.emmployee.show', $row->id) .'" class="btn btn-primary btn-sm ml-1 mr-1"><i class="fa fa-eye"></i> </a>';
-                    $btn .= '<form action="'. route('admin.emmployee.destroy', $row->id) .'" class="my-1 my-xl-0" method="post" style="display: inline-block;">';
+                    $btn = '<a href="'. route('admin.employee.edit', $row->id) .'" class="btn btn-success btn-sm"><i class="fa fa-edit"></i> </a>';
+                    $btn .= '<a href="'. route('admin.employee.show', $row->id) .'" class="btn btn-primary btn-sm ml-1 mr-1"><i class="fa fa-eye"></i> </a>';
+                    $btn .= '<form action="'. route('admin.employee.destroy', $row->id) .'" class="my-1 my-xl-0" method="post" style="display: inline-block;">';
                     $btn .= '<input name="_method" type="hidden" value="DELETE"><input name="_token" type="hidden" value="'.csrf_token().'">';
                     $btn .= '<button type="submit" class="btn btn-danger btn-sm  btn-jinja-delete"><i class="fa fa-trash"></i> </button>';
                     $btn .= '</form>';
@@ -44,7 +44,7 @@ class EmployeeController extends Controller
                 ->make(true);
         }
 
-        return view('admin.emmployee.index');
+        return view('admin.employee.index');
     }
 
     /**
@@ -57,7 +57,7 @@ class EmployeeController extends Controller
         $roles = Role::select('id', 'name', 'label')->get();
         $roles = $roles->pluck('label', 'name');
         $user = new User();
-        return view('admin.emmployee.create', compact('roles', 'user'));
+        return view('admin.employee.create', compact('roles', 'user'));
     }
 
     /**
@@ -74,7 +74,7 @@ class EmployeeController extends Controller
             [
                 'name' => 'required',
                 'email' => 'required|string|max:255|email|unique:users,email',
-                'roles' => 'required',
+                'is_admin' => 'required',
                 'password' => 'required',
                 'phone' => 'required|integer|max:255|unique:users,phone',
             ]
@@ -93,7 +93,7 @@ class EmployeeController extends Controller
             $user->assignRole($role);
         }
 
-        return redirect('admin/emmployee')->with('flash_message', __('general.added_successfully'));
+        return redirect('admin/employee')->with('flash_message', __('general.added_successfully'));
     }
 
     /**
@@ -107,7 +107,7 @@ class EmployeeController extends Controller
     {
         $user = User::findOrFail($id);
 
-        return view('admin.emmployee.show', compact('user'));
+        return view('admin.employee.show', compact('user'));
     }
 
     /**
@@ -128,7 +128,7 @@ class EmployeeController extends Controller
             $user_roles[] = $role->name;
         }
 
-        return view('admin.emmployee.edit', compact('user', 'roles', 'user_roles'));
+        return view('admin.employee.edit', compact('user', 'roles', 'user_roles'));
     }
 
     /**
@@ -167,7 +167,7 @@ class EmployeeController extends Controller
             $user->assignRole($role);
         }
 
-        return redirect('admin/emmployee')->with('flash_message', __('general.updated_successfully'));
+        return redirect('admin/employee')->with('flash_message', __('general.updated_successfully'));
     }
 
     /**
@@ -181,7 +181,7 @@ class EmployeeController extends Controller
     {
         User::destroy($id);
 
-        return redirect('admin/emmployee')->with('flash_message', __('general.deleted_successfully'));
+        return redirect('admin/employee')->with('flash_message', __('general.deleted_successfully'));
     }
 
     public function bulkDelete()
@@ -193,6 +193,6 @@ class EmployeeController extends Controller
 
         }//end of for each
 
-        return redirect('admin/emmployee')->with('flash_message', __('general.deleted_successfully'));
+        return redirect('admin/employee')->with('flash_message', __('general.deleted_successfully'));
     }// end of bulkDelete
 }
